@@ -1,0 +1,51 @@
+1) pwd - shows the path to your location on the system;
+
+2) mkdir - creates a folder in the current directory.
+
+If you want to create a folder in a different directory, you need to write the path where the new folder will be created before the folder name (mkdir /D/Folder).
+
+To create several folders at once, add folder names separated by spaces (mkdir NewFolder1 NewFolder2 NewFolder3);
+
+3) cd - used to move from one directory to another. 
+
+cd . - moves up one level;
+
+4) touch - this command can be used to create files of different formats (json, txt, htm). With this command you can create several files at once.
+File names must be separated by spaces;
+
+5) ls - displays the contents of a folder. This command has many different options. With the -a option, you can view hidden files in the specified directory;
+
+6) vim, nano - these are text terminal editors, you can use them to open and edit files;
+
+7) mv - move command (mv file /home/user/tmp/). Interestingly, this command is also used for renaming (mv OldName NewName, the name is changed to NewName);
+
+8) cp - command to copy;
+
+9) find - command finds file;
+
+10) tail - command outputs the last 10 lines of the file. Additionally, the operation of the command can be configured using options;
+
+11) head - by default, it outputs the first 10 lines of the file. It can also be configured with additional options;
+
+12) less - it can be used to open long files;
+
+13) date - displays date and time;
+
+14) curl - we can use this command to send an http-request to the server;
+
+15) to write a script, you should first create a text file.  The script is saved in .sh format. The first line should indicate the shell,
+through which the script will be executed. For example:
+
+#!/bin/bash
+
+mkdir folder1 folder2 folder3
+
+cd folder1
+
+touch 1.txt 2.txt 3.txt 1.json 2.json
+
+mkdir f1 f2 f3
+
+mv 1.txt 2.txt f1
+
+Translated with www.DeepL.com/Translator (free version)

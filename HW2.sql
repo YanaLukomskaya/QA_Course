@@ -11,55 +11,71 @@ where salary.monthly_salary < 2000;
 
 -- 3. Output all salary positions, but the employee is not assigned to them. (There is a salary, but it is not clear who receives it).
 select salary.monthly_salary, employees.employee_name
-from salary right join employees
+from salary left join employees
 on salary.id = employees.id
 where employee_name is null;
 
 -- 4. Output all salary positions below 2000, but no staff member has been assigned to them. (There is a salary, but it is not clear who receives it).
-select salary.monthly_salary, employees.employee_name
-from employees left join salary
+select salary.id, salary.monthly_salary, employees.employee_name
+from employees right join salary
 on employees.id = salary.id
+left join employee_salary
+on employee_salary.id = salary.id
 where monthly_salary < 2000 and employee_name is null;
 
 -- 5. Output all employees who have not been assigned a salary.
 select employees.employee_name, salary.monthly_salary
-from employees left join salary
+from employees right join salary
 on employees.id = salary.id
-where monthly_salary is null;
+left join employee_salary
+on employee_salary.id = salary.id
+where monthly_salary is not null;
 
 -- 6. Output all employees with their job titles.
 select employees.employee_name, roles.role_name
-from employees join roles
-on employees.id = roles.id;
+from roles right join employees
+on roles.id = employees.id
+left join roles_employee
+on roles_employee.id = employees.id;
 
 -- 7. Output names and positions of Java developers only.
 select employees.employee_name, roles.role_name
-from employees join roles
-on employees.id = roles.id
+from roles right join employees
+on roles.id = employees.id 
+left join roles_employee
+on roles_employee.id = employees.id
 where roles.role_name like '%Java developer';
 
 -- 8. Output names and title of Python developers only.
-select employee_name, role_name
-from employees join roles
-on employees.id = roles.id
+select employees.employee_name, roles.role_name
+from roles right join employees
+on roles.id = employees.id 
+left join roles_employee
+on roles_employee.id = employees.id
 where roles.role_name like '%Python%';
 
 -- 9. Output names and title of all QA engineers.
-select employee_name, role_name
-from employees join roles
-on employees.id = roles.id
+select employees.employee_name, roles.role_name
+from roles right join employees
+on roles.id = employees.id 
+left join roles_employee
+on roles_employee.id = employees.id
 where roles.role_name like '%QA%';
 
 -- 10. Output the names and job titles of manual QA engineers.
-select employee_name, role_name
-from employees join roles
-on employees.id = roles.id
+select employees.employee_name, roles.role_name
+from roles right join employees
+on roles.id = employees.id 
+left join roles_employee
+on roles_employee.id = employees.id
 where roles.role_name like '%Manual QA%';
 
 -- 11. Output the names and job titles of the QA automators.
-select employee_name, role_name
-from employees join roles
-on employees.id = roles.id
+select employees.employee_name, roles.role_name
+from roles right join employees
+on roles.id = employees.id 
+left join roles_employee
+on roles_employee.id = employees.id
 where roles.role_name like '%Automation QA%';
 
 -- 12. Output names and salaries of Junior specialists.
@@ -160,26 +176,26 @@ select (select MAX(monthly_salary)
 	
 -- 25. Output the number of QA engineers.
 select count(employee_name) 
-from employees left join roles_employee
-on employees.id = roles_employee.id_employee 
+from employees left join salary
+on salary.id = employees.id
 right join roles
-on roles.id = roles_employee.id_role
+on employees.id = roles.id
 where role_name like '%QA%';
 
 -- 26. Output the number of Middle specialists.
 select count(employee_name) 
 from employees left join roles_employee
-on employees.id = roles_employee.id_employee 
+on employees.id = roles_employee.employee_id
 right join roles
-on roles.id = roles_employee.id_role
+on roles.id = roles_employee.role_id
 where role_name like '%Middle%';
 
 -- 27. Output the number of developers.
 select count(employee_name) 
 from employees left join roles_employee
-on employees.id = roles_employee.id_employee 
+on employees.id = roles_employee.employee_id 
 right join roles
-on roles.id = roles_employee.id_role
+on roles.id = roles_employee.role_id
 where role_name like '%developer%';
 	
 -- 28. Output developers' salary fund (amount).
